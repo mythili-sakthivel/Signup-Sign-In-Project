@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXTRIP - Sign In</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+    <div class="auth-wrapper signin-layout">
+        <!-- Left Panel -->
+        <div class="auth-panel-left signin-left">
+            <div class="panel-content">
+                <div class="brand-logo">✈ NEXTRIP</div>
+                <h2 class="panel-title">Welcome Back!</h2>
+                <p class="panel-subtitle">Sign in to continue your travel journey. Your next adventure is just a click away.</p>
+                <div class="panel-features">
+                    <div class="panel-feature">🗺 Saved Itineraries</div>
+                    <div class="panel-feature">🎫 Your Bookings</div>
+                    <div class="panel-feature">⭐ Wishlist</div>
+                    <div class="panel-feature">🏆 Loyalty Points</div>
+                </div>
+                <div class="panel-image-bg signin-bg"></div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Signin Form -->
+        <div class="auth-panel-right">
+            <div class="auth-form-container signin-form-container">
+                <div class="auth-header">
+                    <div class="signin-icon">✈</div>
+                    <h1 class="auth-title">Sign In</h1>
+                    <p class="auth-subtitle">Access your NEXTRIP account</p>
+                </div>
+
+                <form id="signinForm" class="auth-form" novalidate>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="signinEmail" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">✉</span>
+                            <input type="email" id="signinEmail" name="email"
+                                   class="form-input" placeholder="example@mail.com" required>
+                        </div>
+                        <span class="error-msg" id="signinEmailError"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="signinPassword" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="signinPassword" name="password"
+                                   class="form-input" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" data-target="signinPassword" aria-label="Toggle password visibility">
+                                <span class="eye-icon" id="eyeSigninPassword">👁</span>
+                            </button>
+                        </div>
+                        <span class="error-msg" id="signinPasswordError"></span>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn-auth">Sign In</button>
+                    <span class="error-msg" id="signinGeneralError" style="display:block; text-align:center; margin-top:0.5rem;"></span>
+                    <span class="success-msg" id="signinSuccess"></span>
+
+                </form>
+
+                <div class="auth-redirect">
+                    Don't have an account? <a href="SignUp.html" class="auth-link">Sign Up here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

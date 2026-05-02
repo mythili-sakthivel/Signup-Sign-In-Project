@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXTRIP - Create Account</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="auth-body">
+
+    <div class="auth-wrapper">
+        <!-- Left Panel -->
+        <div class="auth-panel-left">
+            <div class="panel-content">
+                <div class="brand-logo">✈ NEXTRIP</div>
+                <h2 class="panel-title">Begin Your Journey</h2>
+                <p class="panel-subtitle">Join thousands of travelers who trust NEXTRIP for their adventures around the globe.</p>
+                <div class="panel-features">
+                    <div class="panel-feature">🌍 180+ Destinations</div>
+                    <div class="panel-feature">💳 Secure Payments</div>
+                    <div class="panel-feature">🎯 Personalised Plans</div>
+                    <div class="panel-feature">📞 24/7 Support</div>
+                </div>
+                <div class="panel-image-bg"></div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Signup Form -->
+        <div class="auth-panel-right">
+            <div class="auth-form-container">
+                <div class="auth-header">
+                    <h1 class="auth-title">Create Account</h1>
+                    <p class="auth-subtitle">Fill in your details to get started</p>
+                </div>
+
+                <form id="signupForm" class="auth-form" novalidate>
+
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">👤</span>
+                            <input type="text" id="fullName" name="fullName"
+                                   class="form-input" placeholder="Enter your full name" required>
+                        </div>
+                        <span class="error-msg" id="fullNameError"></span>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="signupEmail" class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">✉</span>
+                            <input type="email" id="signupEmail" name="email"
+                                   class="form-input" placeholder="example@mail.com" required>
+                        </div>
+                        <span class="error-msg" id="signupEmailError"></span>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📱</span>
+                            <input type="tel" id="phone" name="phone"
+                                   class="form-input" placeholder="10-digit mobile number" required maxlength="10">
+                        </div>
+                        <span class="error-msg" id="phoneError"></span>
+                    </div>
+
+                    <!-- Location/City -->
+                    <div class="form-group">
+                        <label for="city" class="form-label">Location / City</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">📍</span>
+                            <input type="text" id="city" name="city"
+                                   class="form-input" placeholder="Your city" required>
+                        </div>
+                        <span class="error-msg" id="cityError"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="signupPassword" class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔒</span>
+                            <input type="password" id="signupPassword" name="password"
+                                   class="form-input" placeholder="Min 8 chars, letters & numbers" required>
+                            <button type="button" class="toggle-password" data-target="signupPassword" aria-label="Toggle password visibility">
+                                <span class="eye-icon" id="eyeSignupPassword">👁</span>
+                            </button>
+                        </div>
+                        <span class="error-msg" id="signupPasswordError"></span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">🔐</span>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                   class="form-input" placeholder="Re-enter your password" required>
+                            <button type="button" class="toggle-password" data-target="confirmPassword" aria-label="Toggle confirm password visibility">
+                                <span class="eye-icon" id="eyeConfirmPassword">👁</span>
+                            </button>
+                        </div>
+                        <span class="error-msg" id="confirmPasswordError"></span>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn-auth">Create Account</button>
+                    <span class="success-msg" id="signupSuccess"></span>
+
+                </form>
+
+                <div class="auth-redirect">
+                    Already have an account? <a href="SignIn.html" class="auth-link">Sign In here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -4,78 +4,541 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NEXTRIP - Sign In</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1e40af;
+            --primary-dark: #1e3a8a;
+            --secondary: #f97316;
+            --secondary-dark: #ea6317;
+            --text-dark: #1a1a1a;
+            --text-light: #ffffff;
+            --bg-light: #f5f5f5;
+            --border: #e5e5e5;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.15);
+            --error: #dc2626;
+            --success: #16a34a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 700; }
+
+        /* ── HEADER ── */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .header-link {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .header-link:hover { color: var(--secondary); }
+
+        /* ── MAIN LAYOUT ── */
+        .page-wrap {
+            flex: 1;
+            display: flex;
+            align-items: stretch;
+            min-height: calc(100vh - 70px);
+        }
+
+        /* ── LEFT PANEL ── */
+        .left-panel {
+            width: 42%;
+            background: linear-gradient(160deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 60px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: '';
+            position: absolute;
+            width: 350px; height: 350px;
+            border-radius: 50%;
+            background: rgba(249,115,22,0.12);
+            top: -100px; right: -100px;
+        }
+
+        .left-panel::after {
+            content: '';
+            position: absolute;
+            width: 250px; height: 250px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            bottom: -60px; left: -60px;
+        }
+
+        .left-content { position: relative; z-index: 1; }
+
+        .left-content h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--text-light);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .left-content h2 span { color: var(--secondary); }
+
+        .left-content p {
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .perks { display: flex; flex-direction: column; gap: 1rem; }
+
+        .perk {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 14px 18px;
+            transition: background 0.3s;
+        }
+
+        .perk:hover { background: rgba(255,255,255,0.12); }
+
+        .perk-icon {
+            width: 40px; height: 40px;
+            background: var(--secondary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .perk-text strong {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .perk-text span {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ── RIGHT PANEL ── */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 50px;
+            background: #ffffff;
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 420px;
+            animation: slideUp 0.5s ease both;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-box h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-box .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ── ALERT BOXES ── */
+        .alert {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.86rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .alert.show { display: flex; animation: slideUp 0.3s ease; }
+        .alert.error  { background: #fef2f2; border: 1px solid #fecaca; color: var(--error); }
+        .alert.success { background: #f0fdf4; border: 1px solid #bbf7d0; color: var(--success); }
+
+        /* ── FORM FIELDS ── */
+        .form-group { margin-bottom: 1.4rem; }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 0.88rem;
+        }
+
+        .input-wrap { position: relative; }
+
+        .input-wrap .icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.95rem;
+            opacity: 0.45;
+            pointer-events: none;
+        }
+
+        .input-wrap input {
+            width: 100%;
+            padding: 0.85rem 0.9rem 0.85rem 38px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.93rem;
+            color: var(--text-dark);
+            background: #fafafa;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-wrap input::placeholder { color: #bbb; }
+
+        .input-wrap input:focus {
+            border-color: var(--secondary);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(249,115,22,0.12);
+        }
+
+        .input-wrap input.error {
+            border-color: var(--error);
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+        }
+
+        .toggle-pw {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #999;
+            transition: color 0.2s;
+            padding: 0;
+        }
+
+        .toggle-pw:hover { color: var(--primary); }
+
+        .error-msg {
+            display: block;
+            color: var(--error);
+            font-size: 0.8rem;
+            margin-top: 0.35rem;
+            min-height: 1rem;
+        }
+
+        /* ── SUBMIT BUTTON ── */
+        .btn-submit {
+            width: 100%;
+            padding: 0.95rem;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(249,115,22,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(249,115,22,0.4);
+        }
+
+        .btn-submit:active { transform: translateY(0); }
+
+        .btn-submit.loading { pointer-events: none; }
+        .btn-submit.loading .btn-text { visibility: hidden; }
+        .btn-submit.loading::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            border: 2.5px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        .switch-link {
+            text-align: center;
+            margin-top: 1.4rem;
+            font-size: 0.88rem;
+            color: #666;
+        }
+
+        .switch-link a {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        .switch-link a:hover { color: var(--secondary-dark); text-decoration: underline; }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            text-align: center;
+        }
+
+        .footer p { color: rgba(255,255,255,0.85); font-size: 0.88rem; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .left-panel { display: none; }
+            .right-panel { padding: 40px 28px; }
+        }
+
+        @media (max-width: 480px) {
+            .form-box h1 { font-size: 1.6rem; }
+            .right-panel { padding: 32px 20px; }
+        }
+    </style>
 </head>
-<body class="auth-body">
+<body>
 
-    <div class="auth-wrapper signin-layout">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="brand">✈ NEXTRIP</a>
+            <a href="SignUp.html" class="header-link">New here? Sign Up →</a>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <div class="page-wrap">
+
         <!-- Left Panel -->
-        <div class="auth-panel-left signin-left">
-            <div class="panel-content">
-                <div class="brand-logo">✈ NEXTRIP</div>
-                <h2 class="panel-title">Welcome Back!</h2>
-                <p class="panel-subtitle">Sign in to continue your travel journey. Your next adventure is just a click away.</p>
-                <div class="panel-features">
-                    <div class="panel-feature">🗺 Saved Itineraries</div>
-                    <div class="panel-feature">🎫 Your Bookings</div>
-                    <div class="panel-feature">⭐ Wishlist</div>
-                    <div class="panel-feature">🏆 Loyalty Points</div>
+        <div class="left-panel">
+            <div class="left-content">
+                <h2>Welcome<br><span>Back!</span></h2>
+                <p>Sign in to continue your travel journey. Your next adventure is just a click away.</p>
+                <div class="perks">
+                    <div class="perk">
+                        <div class="perk-icon">🗺</div>
+                        <div class="perk-text">
+                            <strong>Saved Itineraries</strong>
+                            <span>Pick up where you left off</span>
+                        </div>
+                    </div>
+                    <div class="perk">
+                        <div class="perk-icon">🎫</div>
+                        <div class="perk-text">
+                            <strong>Your Bookings</strong>
+                            <span>Track all your trips</span>
+                        </div>
+                    </div>
+                    <div class="perk">
+                        <div class="perk-icon">⭐</div>
+                        <div class="perk-text">
+                            <strong>Wishlist</strong>
+                            <span>Destinations you love</span>
+                        </div>
+                    </div>
+                    <div class="perk">
+                        <div class="perk-icon">🏆</div>
+                        <div class="perk-text">
+                            <strong>Loyalty Points</strong>
+                            <span>Earn & redeem rewards</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-image-bg signin-bg"></div>
             </div>
         </div>
 
-        <!-- Right Panel - Signin Form -->
-        <div class="auth-panel-right">
-            <div class="auth-form-container signin-form-container">
-                <div class="auth-header">
-                    <div class="signin-icon">✈</div>
-                    <h1 class="auth-title">Sign In</h1>
-                    <p class="auth-subtitle">Access your NEXTRIP account</p>
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <div class="form-box">
+                <h1>Sign In</h1>
+                <p class="subtitle">Access your NEXTRIP account</p>
+
+                <div class="alert error" id="errorAlert">⚠ <span id="errorMsg"></span></div>
+                <div class="alert success" id="successAlert">✓ Login successful! Redirecting to your dashboard…</div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrap">
+                        <span class="icon">✉</span>
+                        <input type="email" id="email" placeholder="jane@example.com">
+                    </div>
+                    <span class="error-msg" id="emailError"></span>
                 </div>
 
-                <form id="signinForm" class="auth-form" novalidate>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="signinEmail" class="form-label">Email Address</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">✉</span>
-                            <input type="email" id="signinEmail" name="email"
-                                   class="form-input" placeholder="example@mail.com" required>
-                        </div>
-                        <span class="error-msg" id="signinEmailError"></span>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrap">
+                        <span class="icon">🔒</span>
+                        <input type="password" id="password" placeholder="Your password">
+                        <button class="toggle-pw" type="button" onclick="togglePw('password', this)">👁</button>
                     </div>
+                    <span class="error-msg" id="passwordError"></span>
+                </div>
 
-                    <!-- Password -->
-                    <div class="form-group">
-                        <label for="signinPassword" class="form-label">Password</label>
-                        <div class="input-wrapper">
-                            <span class="input-icon">🔒</span>
-                            <input type="password" id="signinPassword" name="password"
-                                   class="form-input" placeholder="Enter your password" required>
-                            <button type="button" class="toggle-password" data-target="signinPassword" aria-label="Toggle password visibility">
-                                <span class="eye-icon" id="eyeSigninPassword">👁</span>
-                            </button>
-                        </div>
-                        <span class="error-msg" id="signinPasswordError"></span>
-                    </div>
+                <button class="btn-submit" id="submitBtn" onclick="handleSignIn()">
+                    <span class="btn-text">Sign In</span>
+                </button>
 
-                    <!-- Submit -->
-                    <button type="submit" class="btn-auth">Sign In</button>
-                    <span class="error-msg" id="signinGeneralError" style="display:block; text-align:center; margin-top:0.5rem;"></span>
-                    <span class="success-msg" id="signinSuccess"></span>
-
-                </form>
-
-                <div class="auth-redirect">
-                    Don't have an account? <a href="SignUp.html" class="auth-link">Sign Up here</a>
+                <div class="switch-link">
+                    Don't have an account? <a href="SignUp.html">Sign Up here</a>
                 </div>
             </div>
         </div>
+
     </div>
 
-    <script src="js/script.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 NEXTRIP. All Rights Reserved. | Travel Beyond Limits</p>
+    </footer>
+
+    <script>
+        // Pre-fill email if coming from SignUp
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const email = params.get('email');
+            if (email) {
+                document.getElementById('email').value = decodeURIComponent(email);
+                document.getElementById('password').focus();
+            }
+        });
+
+        function togglePw(id, btn) {
+            const inp = document.getElementById(id);
+            inp.type = inp.type === 'password' ? 'text' : 'password';
+            btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+        }
+
+        function setError(inputId, errId, msg) {
+            const inp = document.getElementById(inputId);
+            const err = document.getElementById(errId);
+            if (msg) {
+                inp.classList.add('error');
+                err.textContent = msg;
+                return true;
+            } else {
+                inp.classList.remove('error');
+                err.textContent = '';
+                return false;
+            }
+        }
+
+        function handleSignIn() {
+            document.getElementById('errorAlert').classList.remove('show');
+            document.getElementById('successAlert').classList.remove('show');
+
+            const email = document.getElementById('email').value.trim();
+            const pass  = document.getElementById('password').value;
+
+            let hasError = false;
+            hasError |= setError('email',    'emailError',    !email || !/\S+@\S+\.\S+/.test(email) ? 'Enter a valid email address' : '');
+            hasError |= setError('password', 'passwordError', !pass ? 'Please enter your password' : '');
+            if (hasError) return;
+
+            const btn = document.getElementById('submitBtn');
+            btn.classList.add('loading');
+
+            setTimeout(() => {
+                btn.classList.remove('loading');
+                const users = JSON.parse(localStorage.getItem('nextrip_users') || '{}');
+                const user  = users[email];
+
+                if (!user || user.pass !== pass) {
+                    document.getElementById('errorMsg').textContent = 'Incorrect email or password. Please try again.';
+                    document.getElementById('errorAlert').classList.add('show');
+                    return;
+                }
+
+                // Save logged-in user
+                localStorage.setItem('nextrip_current_user', JSON.stringify(user));
+
+                document.getElementById('successAlert').classList.add('show');
+
+                // Redirect to main page after 1.2s
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1200);
+            }, 1000);
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter') handleSignIn();
+        });
+    </script>
 </body>
 </html>

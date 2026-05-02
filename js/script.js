@@ -493,5 +493,14 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         }
     });
 });
+<script>
+  const user = localStorage.getItem("nextrip_current_user");
+
+  if (user) {
+    window.location.href = "travelapp.html" // already logged in
+  } else {
+    window.location.href = "SignUp.html"
+  };
+</script>
 
 console.log('NEXTRIP ✈ - Adventure Awaits You');
